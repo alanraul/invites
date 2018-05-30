@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  phx:
+    image: codigobicentenario/phoenix:latest
+    ports:
+      - "${PHX_HOST_PORT:-9000}:${PHX_PORT:-4000}"
+    volumes:
+      - ./src:/app/src
+      - ./src/_build/prod/rel:/app/src/_build/prod/rel
+      - phx.deps:/app/src/deps
+      - phx.builds:/app/src/_build
+    depends_on:
+      - postgres
+    environment:
+      - MIX_ENV=${ENV:-dev}
+      - PHX_PORT=${PHX_PORT:-4000}
+      - PHX_URL=${PHX_HOST:-localhost}
+      - PHX_SECRET_KEY_BASE=${PHX_SECRET_KEY_BASE}
+      - PG_INVITES_URL=ecto://postgres:postgres@postgres/invites_${ENV:-dev}
+
+
+    working_dir: /app/src
+    command: mix phx.server
+
+  phx.release:
+    build: .
+    ports:
+       - "${PHX_HOST_PORT:-9001}:${PHX_PORT:-4000}"
+    depends_on:
+      - postgres
+    environment:
+      - REPLACE_OS_VARS=true
+      - PHX_PORT=${PHX_PORT:-4000}
+      - PHX_URL=${PHX_URL:-localhost}
+      - PHX_SECRET_KEY_BASE=${PHX_SECRET_KEY_BASE}
+      - PG_INVITES_URL=ecto://postgres:postgres@postgres/invites_${ENV:-dev}
+
+  postgres:
+    image: postgres:9.6.4
+
+volumes:
+  phx.deps:
+  phx.builds:
