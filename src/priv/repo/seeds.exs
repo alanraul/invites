@@ -9,3 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Invites.Contexts.InvitesManager
+
+InvitesManager.create(%{
+  uri: "https://s3.us-east-2.amazonaws.com/invites-app/83SIN.png",
+  coordinates: "100,100"
+})

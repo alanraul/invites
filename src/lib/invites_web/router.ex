@@ -5,7 +5,10 @@ defmodule InvitesWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", InvitesWeb do
+  scope "/api/v1", InvitesWeb do
     pipe_through :api
+
+    resources "/invites", InvitesController, except: [:edit, :new]
+    resources "/messages", MessagesController, except: [:edit, :new]
   end
 end

@@ -43,3 +43,14 @@ config :phoenix, :stacktrace_depth, 20
 config :invites, Invites.Repo,
   adapter: Ecto.Adapters.Postgres,
   pool_size: 10
+
+
+config :invites, :ex_aws,
+  access_key_id: [
+    {:system, System.get_env("AWS_ACCESS_KEY_ID")},
+    :instance_role
+  ],
+  secret_access_key: [
+    {:system, System.get_env("AWS_SECRET_ACCESS_KEY")},
+    :instance_role
+  ]

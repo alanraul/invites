@@ -70,3 +70,13 @@ config :invites, Invites.Repo,
   url: "${PG_INVITES_URL}",
   pool_size: 20,
   ssl: true
+
+config :invites, :ex_aws,
+  access_key_id: [
+    {:system, "${AWS_ACCESS_KEY_ID}"},
+    :instance_role
+  ],
+  secret_access_key: [
+    {:system, "${AWS_SECRET_ACCESS_KEY}"},
+    :instance_role
+  ]

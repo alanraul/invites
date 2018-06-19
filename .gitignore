@@ -3,7 +3,12 @@ src/deps
 src/*.ez
 src/erl_crash.dump
 src/cover
+build/
+dist/
+venv/
 
+*.jpg
+*.spec
 .env
 .DS_Store
 .DS_Store?
