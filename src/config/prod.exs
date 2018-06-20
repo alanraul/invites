@@ -80,3 +80,7 @@ config :invites, :ex_aws,
     {:system, "${AWS_SECRET_ACCESS_KEY}"},
     :instance_role
   ]
+
+config :invites, :buckets,
+  fonts: "${FONTS_BUCKET}",
+  messages: "${MESSAGES_BUCKET}"

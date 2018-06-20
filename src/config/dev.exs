@@ -54,3 +54,7 @@ config :invites, :ex_aws,
     {:system, System.get_env("AWS_SECRET_ACCESS_KEY")},
     :instance_role
   ]
+
+config :invites, :buckets,
+  fonts: System.get_env("FONTS_BUCKET"),
+  messages: System.get_env("MESSAGES_BUCKET")
