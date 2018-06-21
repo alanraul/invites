@@ -13,6 +13,6 @@
 alias Invites.Contexts.InvitesManager
 
 InvitesManager.create(%{
-  uri: "https://s3.us-east-2.amazonaws.com/invites-app/83SIN.png",
-  coordinates: "100,100"
+  uri: "https://s3.us-east-2.amazonaws.com/invites-templates/83SIN.png",
+  coordinates: "40,220"
 })

@@ -2,6 +2,7 @@ defmodule InvitesWeb.MessagesController do
   use InvitesWeb, :controller
 
   alias Invites.Contexts.InvitesManager
+  alias ExAws.S3
 
   require Logger
 
@@ -14,19 +15,32 @@ defmodule InvitesWeb.MessagesController do
       nil ->
         render(conn, ErrorView, "404.json")
       invite ->
-        fonts_bucket = Application.get_env(:invites, :buckets)[:fonts]
-        font = "https://s3.us-east-2.amazonaws.com/invites-app/#{message_params["font"]}"
+
+        font = "https://s3.us-east-2.amazonaws.com/invites-fonts/#{message_params["font"]}"
         path_script = "#{System.cwd()}/pillow"
+        file_name = Ecto.UUID.generate()
 
-        {"", 0} = System.cmd(path_script, [invite.uri, font, message_params["text"]])
+        {"", 0} = System.cmd(
+          path_script,
+          [invite.uri, font, invite.coordinates, message_params["text"], file_name]
+        )
 
-        ExAws.S3.put_object("invites-app", "output.jpg", File.read!("#{System.cwd()}/output.jpg"),  [acl: :public_read])
-        |> ExAws.request(region: "us-east-2")
+        upload_file(file_name)
 
         message = %{
-          uri: "https://s3.us-east-2.amazonaws.com/invites-app/output.jpg"
+          uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.jpg"
         }
         render(conn, "message.json", message: message)
     end
+  end
+
+  def upload_file(file_name) do
+    file = "#{System.cwd()}/#{file_name}.jpg"
+
+    Application.get_env(:invites, :buckets)[:messages]
+    |> S3.put_object("#{file_name}.jpg", File.read!(file), [acl: :public_read])
+    |> ExAws.request(region: "us-east-2")
+
+    File.rm(file)
   end
 end
