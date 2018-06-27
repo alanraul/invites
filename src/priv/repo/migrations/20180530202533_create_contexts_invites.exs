@@ -8,7 +8,6 @@ defmodule Invites.Repo.Migrations.CreateContextsInvites do
 
       timestamps()
     end
-
   end
 
   def down do

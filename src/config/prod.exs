@@ -81,6 +81,4 @@ config :invites, :ex_aws,
     :instance_role
   ]
 
-config :invites, :buckets,
-  fonts: "${FONTS_BUCKET}",
-  messages: "${MESSAGES_BUCKET}"
+config :invites, :buckets, messages: "${INVITES_BUCKET}"

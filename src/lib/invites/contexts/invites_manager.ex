@@ -8,8 +8,12 @@ defmodule Invites.Contexts.InvitesManager do
   alias Invites.Repo
   alias Invites.Contexts.Invites
 
-  @fields [:uri, :coordinates]
-  @required [:uri, :coordinates]
+  @fields [
+    :template_uri, :coordinates, :font_uri, :font_size, :column_width, :color
+  ]
+  @required [
+    :template_uri, :coordinates, :font_uri, :font_size, :column_width, :color
+  ]
 
   @doc """
   Lista todas las preguntas.

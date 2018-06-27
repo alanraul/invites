@@ -55,6 +55,4 @@ config :invites, :ex_aws,
     :instance_role
   ]
 
-config :invites, :buckets,
-  fonts: System.get_env("FONTS_BUCKET"),
-  messages: System.get_env("MESSAGES_BUCKET")
+config :invites, :buckets, messages: System.get_env("INVITES_BUCKET")

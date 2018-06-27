@@ -7,6 +7,7 @@ services:
     volumes:
       - ./src:/app/src
       - ./src/_build/prod/rel:/app/src/_build/prod/rel
+      - ./scripts:/scripts
       - phx.deps:/app/src/deps
       - phx.builds:/app/src/_build
     depends_on:
@@ -21,8 +22,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-default}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
-      - FONTS_BUCKET=${FONTS_BUCKET:-default}
-      - MESSAGES_BUCKET=${MESSAGES_BUCKET:-default}
+      - INVITES_BUCKET=${INVITES_BUCKET:-default}
 
     working_dir: /app/src
     command: mix phx.server
@@ -43,8 +43,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-default}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
-      - FONTS_BUCKET=${FONTS_BUCKET:-default}
-      - MESSAGES_BUCKET=${MESSAGES_BUCKET:-default}
+      - INVITES_BUCKET=${INVITES_BUCKET:-default}
 
   postgres:
     image: postgres:9.6.4
