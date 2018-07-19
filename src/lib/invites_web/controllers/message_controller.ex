@@ -19,22 +19,22 @@ defmodule InvitesWeb.MessagesController do
         coordinates = Poison.encode!(%{coordinates: invite.coordinates})
         texts = Poison.encode!(%{texts: message_params["texts"]})
 
-        path_script = "#{System.cwd()}/pillow"
-        file_name = Ecto.UUID.generate()
+        # path_script = "#{System.cwd()}/pillow"
+        # file_name = Ecto.UUID.generate()
 
-        {"", 0} = System.cmd(
-          path_script,
-          [
-            invite.template_uri, invite.font_uri, invite.font_size,
-            invite.color, coordinates, texts, invite.column_width, file_name
-          ]
-        )
-
-        upload_file(file_name)
-
-        render(conn, "message.json", message: %{
-          uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.jpg"
-        })
+        # {"", 0} = System.cmd(
+        #   path_script,
+        #   [
+        #     invite.template_uri, invite.font_uri, invite.font_size,
+        #     invite.color, coordinates, texts, invite.column_width, file_name
+        #   ]
+        # )
+        #
+        # upload_file(file_name)
+        #
+        # render(conn, "message.json", message: %{
+        #   uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.jpg"
+        # })
     end
   end
 

@@ -11,12 +11,18 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Invites.Contexts.InvitesManager
+alias Invites.Contexts.TextsManager
 
-InvitesManager.create(%{
-  template_uri: "https://s3.us-east-2.amazonaws.com/invites-templates/83SIN.png",
-  coordinates: ["40,220"],
-  font_uri: "https://s3.us-east-2.amazonaws.com/invites-fonts/TypoSlab_demo.otf",
-  font_size: "18",
+{:ok, invite} = InvitesManager.create(%{
+  template: "https://s3.us-east-2.amazonaws.com/invites-templates/01.png",
+})
+
+TextsManager.create(%{
+  coordinates: "40,220",
+  font: "https://s3.us-east-2.amazonaws.com/invites-fonts/TypoSlab_demo.otf",
   column_width: "22",
-  color: "0,0,0"
+  color: "#000",
+  tag: "event",
+  size: "18",
+  invite_id: invite.id
 })

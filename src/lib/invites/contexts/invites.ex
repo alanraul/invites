@@ -1,16 +1,15 @@
 defmodule Invites.Contexts.Invites do
   @moduledoc """
-  Esquema de respuestas divertidas a preguntas regulares.
+  Esquema para templates de invitaciones.
   """
   use Ecto.Schema
 
+  alias Invites.Contexts.Texts
+
   schema "invites" do
-    field :template_uri, :string, [null: false]
-    field :coordinates, {:array, :string}, [null: false]
-    field :font_uri, :string, [null: false]
-    field :font_size, :string, [null: false, default: 18]
-    field :column_width, :string, [null: false, default: 20]
-    field :color, :string, [null: false, default: "0,0,0"]
+    field :template, :string, [null: false]
+
+    has_many :texts, Texts
 
     timestamps()
   end

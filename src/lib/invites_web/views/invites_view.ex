@@ -20,14 +20,11 @@ defmodule InvitesWeb.InvitesView do
   end
 
   def render("invite.json", %{invites: invite}) do
+    IO.inspect(invite)
     %{
       id: invite.id,
-      template_uri: invite.template_uri,
-      coordinates: invite.coordinates,
-      font_uri: invite.font_uri,
-      font_size: invite.font_size,
-      column_width: invite.column_width,
-      color: invite.color
+      template: invite.template,
+
     }
   end
 end

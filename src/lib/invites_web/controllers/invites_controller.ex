@@ -13,6 +13,8 @@ defmodule InvitesWeb.InvitesController do
   @spec index(map, map):: map
   def index(conn, _params) do
     invites = InvitesManager.list()
+    IO.inspect("===========")
+    IO.inspect(invites)
 
     render(conn, "index.json", invites: invites)
   end

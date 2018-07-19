@@ -1,76 +1,74 @@
-defmodule Invites.Contexts.InvitesManager do
+defmodule Invites.Contexts.TextsManager do
   @moduledoc """
-  Manejador de templates de invitaciones.
+  Manejador de textos para invitación.
   """
 
   import Ecto.{Query, Changeset}, warn: false
 
   alias Invites.Repo
-  alias Invites.Contexts.Invites
-  alias Ecto.Changeset
+  alias Invites.Contexts.Texts
 
-  @fields [:template]
-  @required [:template]
+  @fields [
+    :coordinates, :font, :column_width, :color, :tag, :size, :invite_id
+  ]
+  @required [
+    :coordinates, :font, :column_width, :color, :tag, :size, :invite_id
+  ]
 
   @doc """
-  Lista todas las preguntas.
+  Lista todas los textos.
   """
-  def list do
-    Invites
-    |> preload(:texts)
-    |> Repo.all()
-  end
+  def list, do: Repo.all(Texts)
 
   @doc """
-  Crea un pregunta.
+  Crea un texto.
   """
   @spec create(map) :: struct
   def create(attrs \\ %{}) do
-    %Invites{}
+    %Texts{}
     |> changeset(attrs)
     |> Repo.insert()
   end
 
   @doc """
-  Busca una pregunta por id.
+  Busca una texto por id.
   """
   @spec get(integer) :: struct
   def get(id) do
-    Invites
+    Texts
     |> where([u], u.id == ^id)
     |> Repo.one()
   end
 
   @doc """
-  Actualiza un pregunta.
+  Actualiza un texto.
   """
   @spec update(struct, map) :: struct
-  def update(%Invites{} = struct, attrs) do
+  def update(%Texts{} = struct, attrs) do
     struct
     |> changeset(attrs)
     |> Repo.update()
   end
 
   @doc """
-  Elimina una pregunta.
+  Elimina una texto.
   """
   @spec delete(map) :: tuple
-  def delete(%Invites{} = struct) do
+  def delete(%Texts{} = struct) do
     Repo.delete(struct)
   end
 
   @doc """
-  Devuelve un changeset para el schema de templates de invitaciones.
+  Devuelve un changeset para el schema de texto.
   """
   @spec get_changeset(struct, struct) :: struct
-  def get_changeset(struct \\ %Invites{}, params \\ %{}) do
+  def get_changeset(struct \\ %Texts{}, params \\ %{}) do
     changeset(struct, params)
   end
 
-  defp changeset(%Invites{} = struct, attrs \\ %{}) do
+  defp changeset(%Texts{} = struct, attrs \\ %{}) do
     struct
     |> cast(attrs, @fields)
-    |> Changeset.cast_assoc(:texts, required: false)
     |> validate_required(@required)
   end
 end
