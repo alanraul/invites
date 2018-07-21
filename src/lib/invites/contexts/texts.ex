@@ -7,11 +7,11 @@ defmodule Invites.Contexts.Texts do
   alias Invites.Contexts.Invites
 
   schema "texts" do
-    field :font, :string, [null: false]
-    field :size, :string, [null: false]
-    field :column_width, :string, [null: false]
     field :color, :string, [null: false]
+    field :column_width, :integer, [null: false]
     field :coordinates, :string, [null: false]
+    field :font, :string, [null: false]
+    field :size, :integer, [null: false]
     field :tag, :string, [null: false]
 
     belongs_to :invite, Invites

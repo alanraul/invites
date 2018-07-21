@@ -12,7 +12,7 @@ defmodule Invites.Contexts.TextsManager do
     :coordinates, :font, :column_width, :color, :tag, :size, :invite_id
   ]
   @required [
-    :coordinates, :font, :column_width, :color, :tag, :size, :invite_id
+    :coordinates, :font, :column_width, :color, :tag, :size
   ]
 
   @doc """

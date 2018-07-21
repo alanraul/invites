@@ -9,7 +9,7 @@ defmodule Invites.Contexts.Invites do
   schema "invites" do
     field :template, :string, [null: false]
 
-    has_many :texts, Texts
+    has_many :texts, Texts, foreign_key: :invite_id
 
     timestamps()
   end

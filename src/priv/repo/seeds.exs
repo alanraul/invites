@@ -13,16 +13,44 @@
 alias Invites.Contexts.InvitesManager
 alias Invites.Contexts.TextsManager
 
-{:ok, invite} = InvitesManager.create(%{
-  template: "https://s3.us-east-2.amazonaws.com/invites-templates/01.png",
+{:ok, invite} = InvitesManager.create(%{template: "01.png"})
+
+TextsManager.create(%{
+  coordinates: "40,80",
+  font: "TypoSlab_demo.otf",
+  column_width: 22,
+  color: "#000",
+  tag: "event",
+  size: 18,
+  invite_id: invite.id
 })
 
 TextsManager.create(%{
-  coordinates: "40,220",
-  font: "https://s3.us-east-2.amazonaws.com/invites-fonts/TypoSlab_demo.otf",
-  column_width: "22",
+  coordinates: "40,120",
+  font: "TypoSlab_demo.otf",
+  column_width: 22,
   color: "#000",
-  tag: "event",
-  size: "18",
+  tag: "celebrated",
+  size: 18,
+  invite_id: invite.id
+})
+
+TextsManager.create(%{
+  coordinates: "40,160",
+  font: "TypoSlab_demo.otf",
+  column_width: 22,
+  color: "#000",
+  tag: "place",
+  size: 18,
+  invite_id: invite.id
+})
+
+TextsManager.create(%{
+  coordinates: "40,200",
+  font: "TypoSlab_demo.otf",
+  column_width: 22,
+  color: "#000",
+  tag: "date",
+  size: 18,
   invite_id: invite.id
 })

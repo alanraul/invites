@@ -12,13 +12,13 @@ defmodule Invites.Repo.Migrations.CreateContextTexts do
 
     create table(:texts) do
       add :color, :string, [null: false]
-      add :column_width, :string, [null: false]
+      add :column_width, :integer, [null: false]
       add :coordinates, :string, [null: false]
       add :font, :string, [null: false]
-      add :size, :string, [null: false]
+      add :size, :integer, [null: false]
       add :tag, :string, [null: false]
 
-      add :invite_id, references(:invites), [null: false]
+      add :invite_id, references(:invites)
 
       timestamps()
     end
