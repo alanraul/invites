@@ -19,8 +19,8 @@ def set_font_color(color):
     return tuple(int(color.lstrip('#')[i:i+2], 16) for i in (0, 2 ,4))
 
 def draw_text(draw, color, coordinates, column_width, font, text):
-    for line in textwrap.wrap(text, width=column_width):
-        draw.text(coordinates, line, fill=color, font=font, anchor=None, spacing=100, align="right")
+    for line in textwrap.wrap(text, width=15):
+        draw.text(coordinates, line, fill=color, font=font, anchor=None, spacing=0, align="right")
 
         (x, y) = coordinates
         y += font.getsize(line)[1]
@@ -42,6 +42,6 @@ if __name__ == '__main__':
         font = get_file(os.environ["FONTS_BUCKET"], text["font"])
         font = ImageFont.truetype(font, text["size"])
 
-        draw_text(draw, color, coordinates, text["column_width"], font, "Lorem ipsum dolor sit amet")
+        draw_text(draw, color, coordinates, text["column_width"], font, text["text"])
 
-    image.save("lol2" + '.jpg')
+    image.save(invite["name"] + '.jpg')

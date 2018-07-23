@@ -19,7 +19,7 @@ TextsManager.create(%{
   coordinates: "40,80",
   font: "TypoSlab_demo.otf",
   column_width: 22,
-  color: "#000",
+  color: "#000000",
   tag: "event",
   size: 18,
   invite_id: invite.id
@@ -29,7 +29,7 @@ TextsManager.create(%{
   coordinates: "40,120",
   font: "TypoSlab_demo.otf",
   column_width: 22,
-  color: "#000",
+  color: "#000000",
   tag: "celebrated",
   size: 18,
   invite_id: invite.id
@@ -39,7 +39,7 @@ TextsManager.create(%{
   coordinates: "40,160",
   font: "TypoSlab_demo.otf",
   column_width: 22,
-  color: "#000",
+  color: "#000000",
   tag: "place",
   size: 18,
   invite_id: invite.id
@@ -49,7 +49,7 @@ TextsManager.create(%{
   coordinates: "40,200",
   font: "TypoSlab_demo.otf",
   column_width: 22,
-  color: "#000",
+  color: "#000000",
   tag: "date",
   size: 18,
   invite_id: invite.id

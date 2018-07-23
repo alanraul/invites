@@ -37,8 +37,8 @@ defmodule Invites.Contexts.InvitesManager do
   @spec get(integer) :: struct
   def get(id) do
     Invites
-    |> where([u], u.id == ^id)
-    |> Repo.one()
+    |> preload(:texts)
+    |> Repo.get(id)
   end
 
   @doc """

@@ -120,5 +120,10 @@ pip.install.requirements:
 pip.freeze:
 	docker-compose run --rm phx sh -c "pip freeze"
 
-run.script:
-	docker-compose run --rm phx sh -c 'python pillow/index.py "{\"texts\":[{\"tag\":\"event\",\"size\":18,\"id\":1,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,80\",\"column_width\":22,\"color\":\"#000000\"},{\"tag\":\"celebrated\",\"size\":18,\"id\":2,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,120\",\"column_width\":22,\"color\":\"#000000\"},{\"tag\":\"place\",\"size\":18,\"id\":3,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,160\",\"column_width\":22,\"color\":\"#000000\"},{\"tag\":\"date\",\"size\":18,\"id\":4,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,220\",\"column_width\":22,\"color\":\"#000000\"}],\"template\":\"01.png\",\"id\":1}"'
+script.run:
+	docker-compose run --rm phx sh -c 'python pillow/index.py "{\"texts\":[{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,80\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,120\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,160\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,200\",\"column_width\":22,\"color\":\"#000000\"}],\"template\":\"01.png\",\"name\":\"437a6a4f-6edc-4aad-b20c-0f109df0ac47\"}"'
+
+script.gen.binary:
+	docker-compose run --rm phx sh -c "pyinstaller pillow/index.py --onefile"
+	cd src && rm -rf build index.spec
+	mv src/dist src/pillow

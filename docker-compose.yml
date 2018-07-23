@@ -22,6 +22,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-default}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
+      - INVITES_BUCKET=${INVITES_BUCKET:-default}
       - TEMPLATES_BUCKET=${TEMPLATES_BUCKET:-default}
       - FONTS_BUCKET=${FONTS_BUCKET:-default}
 
@@ -45,6 +46,7 @@ services:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-default}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
+      - INVITES_BUCKET=${INVITES_BUCKET:-default}
       - TEMPLATES_BUCKET=${TEMPLATES_BUCKET:-default}
       - FONTS_BUCKET=${FONTS_BUCKET:-default}
 

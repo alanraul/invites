@@ -4,7 +4,7 @@ src/*.ez
 src/erl_crash.dump
 src/cover
 build/
-dist/
+
 venv/
 __pycache__
 
