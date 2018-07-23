@@ -2,6 +2,9 @@
 #### Bootstrap Commands
 ##################################################################
 
+setup:
+	docker build --tag codigobicentenario/phoenix:ubuntu .
+
 bootstrap:
 	docker-compose run --rm -T --no-deps phx sh -c "mix deps.get && mix deps.compile"
 	make ecto.setup
@@ -10,6 +13,7 @@ reset:
 	docker-compose run --rm --no-deps phx sh -c "rm -rf /app/src/deps/* /app/src/_build/dev/*"
 	docker-compose stop
 	docker-compose rm -f
+	docker-compose run --rm --no-deps phx sh -c "rm -rf /src/venv/"
 
 ##################################################################
 #### Docker Commands
@@ -105,3 +109,21 @@ build.release:
 	sudo rm -rf ./src/_build/prod/rel
 	ENV=prod docker-compose run --rm -T --no-deps phx sh -c "mix deps.get && mix deps.compile \
 			&& mix release --no-tar --env=prod"
+
+##################################################################
+#### Scripts Commands
+##################################################################
+
+pip.install.requirements:
+	docker-compose run --rm phx sh -c "pip install -r pillow/requirements.txt --user"
+
+pip.freeze:
+	docker-compose run --rm phx sh -c "pip freeze"
+
+script.run:
+	docker-compose run --rm phx sh -c 'python pillow/index.py "{\"texts\":[{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,80\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,120\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,160\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,200\",\"column_width\":22,\"color\":\"#000000\"}],\"template\":\"01.png\",\"name\":\"437a6a4f-6edc-4aad-b20c-0f109df0ac47\"}"'
+
+script.gen.binary:
+	docker-compose run --rm phx sh -c "pyinstaller pillow/index.py --onefile"
+	cd src && rm -rf build index.spec
+	mv src/dist src/pillow

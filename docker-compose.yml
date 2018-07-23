@@ -5,17 +5,17 @@ services:
     ports:
       - "${PHX_HOST_PORT:-9001}:${PHX_PORT:-4000}"
     volumes:
-      - ./src:/app/src
-      - ./src/_build/prod/rel:/app/src/_build/prod/rel
-      - ./scripts:/scripts
-      - phx.deps:/app/src/deps
-      - phx.builds:/app/src/_build
+      - ./src:/src
+      - ./src/_build/prod/rel:/src/_build/prod/rel
+      - phx.deps:/src/deps
+      - phx.builds:/src/_build
     depends_on:
       - postgres
     environment:
       - MIX_ENV=${ENV:-dev}
       - PHX_PORT=${PHX_PORT:-4000}
       - PHX_URL=${PHX_HOST:-localhost}
+
       - PHX_SECRET_KEY_BASE=${PHX_SECRET_KEY_BASE:-default}
       - PG_INVITES_URL=ecto://postgres:postgres@postgres/invites_${ENV:-dev}
 
@@ -23,8 +23,11 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
       - INVITES_BUCKET=${INVITES_BUCKET:-default}
+      - TEMPLATES_BUCKET=${TEMPLATES_BUCKET:-default}
+      - FONTS_BUCKET=${FONTS_BUCKET:-default}
 
-    working_dir: /app/src
+      - PYTHONUSERBASE=/src/venv
+    working_dir: /src
     command: mix phx.server
 
   phx.release:
@@ -44,6 +47,10 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-default}
 
       - INVITES_BUCKET=${INVITES_BUCKET:-default}
+      - TEMPLATES_BUCKET=${TEMPLATES_BUCKET:-default}
+      - FONTS_BUCKET=${FONTS_BUCKET:-default}
+
+      - PYTHONUSERBASE=/src/venv
 
   postgres:
     image: postgres:9.6.4

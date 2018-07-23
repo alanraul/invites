@@ -22,12 +22,20 @@ defmodule InvitesWeb.InvitesView do
   def render("invite.json", %{invites: invite}) do
     %{
       id: invite.id,
-      template_uri: invite.template_uri,
-      coordinates: invite.coordinates,
-      font_uri: invite.font_uri,
-      font_size: invite.font_size,
-      column_width: invite.column_width,
-      color: invite.color
+      template: invite.template,
+      texts: render_many(invite.texts, InvitesView, "texts.json")
+    }
+  end
+
+  def render("texts.json", %{invites: text}) do
+    %{
+      id: text.id,
+      color: text.color,
+      column_width: text.column_width,
+      coordinates: text.coordinates,
+      font: text.font,
+      size: text.size,
+      tag: text.tag
     }
   end
 end

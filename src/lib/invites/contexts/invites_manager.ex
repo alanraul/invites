@@ -1,24 +1,25 @@
 defmodule Invites.Contexts.InvitesManager do
   @moduledoc """
-  Manejador de funny answer.
+  Manejador de templates de invitaciones.
   """
 
   import Ecto.{Query, Changeset}, warn: false
 
   alias Invites.Repo
   alias Invites.Contexts.Invites
+  alias Ecto.Changeset
 
-  @fields [
-    :template_uri, :coordinates, :font_uri, :font_size, :column_width, :color
-  ]
-  @required [
-    :template_uri, :coordinates, :font_uri, :font_size, :column_width, :color
-  ]
+  @fields [:template]
+  @required [:template]
 
   @doc """
   Lista todas las preguntas.
   """
-  def list, do: Repo.all(Invites)
+  def list do
+    Invites
+    |> preload(:texts)
+    |> Repo.all()
+  end
 
   @doc """
   Crea un pregunta.
@@ -36,8 +37,8 @@ defmodule Invites.Contexts.InvitesManager do
   @spec get(integer) :: struct
   def get(id) do
     Invites
-    |> where([u], u.id == ^id)
-    |> Repo.one()
+    |> preload(:texts)
+    |> Repo.get(id)
   end
 
   @doc """
@@ -59,7 +60,7 @@ defmodule Invites.Contexts.InvitesManager do
   end
 
   @doc """
-  Devuelve un changeset para el schema de funny answers.
+  Devuelve un changeset para el schema de templates de invitaciones.
   """
   @spec get_changeset(struct, struct) :: struct
   def get_changeset(struct \\ %Invites{}, params \\ %{}) do
@@ -69,6 +70,7 @@ defmodule Invites.Contexts.InvitesManager do
   defp changeset(%Invites{} = struct, attrs \\ %{}) do
     struct
     |> cast(attrs, @fields)
+    |> Changeset.cast_assoc(:texts, required: false)
     |> validate_required(@required)
   end
 end

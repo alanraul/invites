@@ -16,19 +16,16 @@ defmodule InvitesWeb.MessagesController do
       nil ->
         render(conn, ErrorView, "404.json")
       invite ->
-        coordinates = Poison.encode!(%{coordinates: invite.coordinates})
-        texts = Poison.encode!(%{texts: message_params["texts"]})
-
-        path_script = "#{System.cwd()}/pillow"
+        texts = _get_texts(invite.texts, message_params["texts"])
         file_name = Ecto.UUID.generate()
 
-        {"", 0} = System.cmd(
-          path_script,
-          [
-            invite.template_uri, invite.font_uri, invite.font_size,
-            invite.color, coordinates, texts, invite.column_width, file_name
-          ]
-        )
+        args = Poison.encode!(%{
+          name: file_name,
+          template: invite.template,
+          texts: texts
+        })
+
+        {"", 0} = System.cmd("#{System.cwd()}/pillow/dist/index", [args])
 
         upload_file(file_name)
 
@@ -36,6 +33,28 @@ defmodule InvitesWeb.MessagesController do
           uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.jpg"
         })
     end
+  end
+
+  @spec _get_texts(list, list):: list
+  defp _get_texts([], messages), do: []
+  defp _get_texts([head | tail], messages) do
+    [
+      %{
+        color: head.color,
+        column_width: head.column_width,
+        coordinates: head.coordinates,
+        font: head.font,
+        size: head.size,
+        text: _get_message(head.tag, messages)
+      }
+      | _get_texts(tail, messages)
+    ]
+  end
+
+  @spec _get_message(String.t, list):: String.t
+  defp _get_message(tag, messages) do
+    message = Enum.find(messages, fn(message) -> message["tag"] == tag end)
+    if message == nil, do: "", else: message["text"]
   end
 
   def upload_file(file_name) do
