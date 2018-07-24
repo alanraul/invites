@@ -56,9 +56,6 @@ shell.test:
 seed:
 	docker-compose run --rm --no-deps phx sh -c "mix run priv/repo/seeds.exs"
 
-gettext:
-	docker-compose run --rm --no-deps phx sh -c "mix gettext.extract && mix gettext.merge priv/gettext"
-
 routes:
 	docker-compose run --rm  phx sh -c "mix phx.routes"
 
@@ -102,13 +99,8 @@ update:
 #### CI/CD Commands
 ##################################################################
 
-check.all:
-	ENV=test docker-compose run --rm -T phx sh -c "sh /scripts/run-checks.sh"
-
 build.release:
-	sudo rm -rf ./src/_build/prod/rel
-	ENV=prod docker-compose run --rm -T --no-deps phx sh -c "mix deps.get && mix deps.compile \
-			&& mix release --no-tar --env=prod"
+	cd src && mix deps.get && mix deps.compile && mix release --no-tar --env=prod
 
 ##################################################################
 #### Scripts Commands
