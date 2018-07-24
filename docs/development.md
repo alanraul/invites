@@ -1,4 +1,4 @@
-# Invites.
+# Invites API.
 
 ### Configurar variables de entorno.
 
@@ -9,7 +9,6 @@ Exporta las variables
 ```shell
 export $(cat .env | xargs)
 ```
-
 
 Necesitaras crear un archivo llamando google_credentials.json dentro de la carpeta secrets.
 
@@ -34,6 +33,7 @@ make start logs
 
 ### Comandos útiles para el setup.
 
+- __make setup__: Construye una imagen de docker a partir del Dockerfile.
 - __make bootstrap__: Configura el entorno por primera vez.
 - __make reset__: Hace un hard reset borrando todas las configuraciones y contenedores.
 
@@ -53,17 +53,25 @@ make start logs
 ### Comandos útiles para del desarrollo.
 
 - __make seed__: Ejecuta seed para cargar datos de prueba.
-- __make gettext__: Actualiza archivos POT y PO.
 - __make routes__: Muestra las rutas.
 - __make credo__: Ejecuta credo.
 - __make test__: Ejecuta todos los tests.
 - __make coverage__: Ejecuta el coverage de cada app por separado.
+- __make coverage.show.linux__: Muestra el detalle del coverage en el navegador.
+- __make coverage.show.mac__: Muestra el detalle del coverage en el navegador.
 - __make deps.update__: Actualiza dependencias.
 - __make ecto.reset__: Hace un reset a la base de datos.
 - __make ecto.setup__: Actualiza migraciones.
+- __make ecto.gen.migration file="test"__: Genera un archivo para una migración.
 - __make update__: Actualiza paquetes y base de datos Postgres.
 
 ### Comandos útiles para el CI/CD.
 
-- __make check.all__: Corre tests, coverage y credo.
 - __make build.release__: Genera un release.
+
+### Comandos útiles para el script que añade el texto en las imagenes.
+
+- __make pip.install.requirements__: Instala la libreria apartir del requirements.txt
+- __make pip.freeze__: Lista todos las librerias instaladas.
+- __make script.run__: Ejecuta el script de python.
+- __make script.gen.binary__: Genera un ejecutable apartir del script python.

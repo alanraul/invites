@@ -1,4 +1,4 @@
-# Invites
+# Invites API.
 
 ## ¿Cómo empezar a trabajar?
 

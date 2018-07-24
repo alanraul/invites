@@ -1,4 +1,4 @@
-# Invites.
+# Invites API.
 
 ## Instalación de dependencias.
 
