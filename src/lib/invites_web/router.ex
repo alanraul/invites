@@ -9,6 +9,7 @@ defmodule InvitesWeb.Router do
     pipe_through :api
 
     resources "/invites", InvitesController, except: [:edit, :new]
+    resources "/invites/texts", TextsController, except: [:edit, :new, :index]
     resources "/messages", MessagesController, except: [:edit, :new]
   end
 end

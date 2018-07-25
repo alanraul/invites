@@ -24,7 +24,7 @@ defmodule InvitesWeb.InvitesController do
   def create(conn, %{"invite" => invite_params}) do
     case InvitesManager.create(invite_params) do
       {:ok, invite} ->
-        render(conn, "show.json", invite: invite)
+        render(conn, "show.json", invite: InvitesManager.get(invite.id))
       {:error, error} ->
         Logger.error "No create invite: #{inspect(error)}"
 
@@ -33,7 +33,7 @@ defmodule InvitesWeb.InvitesController do
   end
 
   @doc """
-  Guarda los datos de una nueva invitación.
+  Muestra una invitación buscando por id.
   """
   @spec show(map, map):: map
   def show(conn, %{"id" => id}) do
@@ -46,7 +46,7 @@ defmodule InvitesWeb.InvitesController do
   end
 
   @doc """
-  Guarda los datos de una nueva invitación.
+  Actualiza los elementos de una invitación.
   """
   @spec update(map, map):: map
   def update(conn, %{"id" => id, "invite" => invite_params}) do
@@ -64,7 +64,7 @@ defmodule InvitesWeb.InvitesController do
   end
 
   @doc """
-  Guarda los datos de una nueva invitación.
+  Elimina una invitación.
   """
   @spec delete(map, map):: map
   def delete(conn, %{"id" => id}) do
