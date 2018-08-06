@@ -31,7 +31,6 @@ defmodule InvitesWeb.TextsController do
       nil ->
         render(conn, ErrorView, "404.json")
       text ->
-        IO.inspect(text)
         render(conn, "show.json", texts: text)
     end
   end
