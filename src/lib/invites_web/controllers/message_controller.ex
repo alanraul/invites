@@ -40,11 +40,13 @@ defmodule InvitesWeb.MessagesController do
   defp _get_texts([head | tail], messages) do
     [
       %{
+        align: head.align,
         color: head.color,
-        column_width: head.column_width,
         coordinates: head.coordinates,
         font: head.font,
+        number_char: head.number_char,
         size: head.size,
+        spacing: head.spacing,
         text: _get_message(head.tag, messages)
       }
       | _get_texts(tail, messages)

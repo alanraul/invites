@@ -9,10 +9,11 @@ defmodule Invites.Contexts.TextsManager do
   alias Invites.Contexts.Texts
 
   @fields [
-    :coordinates, :font, :column_width, :color, :tag, :size, :invite_id
+    :coordinates, :font, :number_char, :color, :tag, :size, :invite_id, :align,
+    :spacing
   ]
   @required [
-    :coordinates, :font, :column_width, :color, :tag, :size
+    :coordinates, :font, :number_char, :color, :tag, :size, :align, :spacing
   ]
 
   @doc """

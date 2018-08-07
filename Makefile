@@ -106,16 +106,22 @@ build.release:
 #### Scripts Commands
 ##################################################################
 
+pip.install:
+	docker-compose run --rm phx sh -c "pip install ${lib} --user"
+
 pip.install.requirements:
 	docker-compose run --rm phx sh -c "pip install -r pillow/requirements.txt --user"
 
 pip.freeze:
 	docker-compose run --rm phx sh -c "pip freeze"
 
+pip.update.requirements:
+	docker-compose run --rm phx sh -c "pip freeze > pillow/requirements.txt"
+
 script.run:
-	docker-compose run --rm phx sh -c 'python pillow/index.py "{\"texts\":[{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,80\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,120\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,160\",\"column_width\":22,\"color\":\"#000000\"},{\"text\":\"hola\",\"size\":18,\"font\":\"TypoSlab_demo.otf\",\"coordinates\":\"40,200\",\"column_width\":22,\"color\":\"#000000\"}],\"template\":\"01.png\",\"name\":\"437a6a4f-6edc-4aad-b20c-0f109df0ac47\"}"'
+	docker-compose run --rm phx sh -c 'python pillow/index.py "{\"texts\":[{\"text\":\"BAR MITZVAH\",\"spacing\":10,\"size\":18,\"number_char\":22,\"font\":\"Gotham-Book.otf\",\"coordinates\":\"140,90\",\"color\":\"#11a1e4\",\"align\":\"center\"},{\"text\":\"DANIEL\",\"spacing\":10,\"size\":60,\"number_char\":22,\"font\":\"Gotham-Book.otf\",\"coordinates\":\"30,120\",\"color\":\"#2d2fa4\",\"align\":\"center\"},{\"text\":\"HORACIO #38, POLANCO\",\"spacing\":10,\"size\":18,\"number_char\":12,\"font\":\"Gotham-Book.otf\",\"coordinates\":\"70,260\",\"color\":\"#e3717f\",\"align\":\"center\"},{\"text\":\"SÁBADO 6 DE JULIO A LAS 2:30 PM\",\"spacing\":10,\"size\":18,\"number_char\":17,\"font\":\"Gotham-Book.otf\",\"coordinates\":\"50,200\",\"color\":\"#e3717f\",\"align\":\"center\"}],\"template\":\"01.png\",\"name\":\"0b51eec8-e7a4-4f00-9fb2-73c444cba1e9\"}"'
 
 script.gen.binary:
 	docker-compose run --rm phx sh -c "pyinstaller pillow/index.py --onefile"
-	cd src && rm -rf build index.spec
+	cd src && rm -rf build index.spec pillow/dist
 	mv src/dist src/pillow

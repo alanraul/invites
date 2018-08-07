@@ -30,11 +30,13 @@ defmodule InvitesWeb.InvitesView do
   def render("texts.json", %{invites: text}) do
     %{
       id: text.id,
+      align: text.align,
       color: text.color,
-      column_width: text.column_width,
       coordinates: text.coordinates,
       font: text.font,
+      number_char: text.number_char,
       size: text.size,
+      spacing: text.spacing,
       tag: text.tag
     }
   end

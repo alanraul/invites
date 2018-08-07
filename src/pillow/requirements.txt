@@ -1,1 +1,7 @@
-Pillow==5.1.0
+altgraph==0.16.1
+dis3==0.1.2
+future==0.16.0
+macholib==1.10
+pefile==2017.11.5
+Pillow==5.2.0
+PyInstaller==3.3.1
