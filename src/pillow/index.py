@@ -90,10 +90,14 @@ def multiline_text(text, number_char, align):
 
         if len_chars > number_char and i+1 != last_word:
             multiline_text += add_spaces(paragraph.rstrip(), number_char, align) + "\n"
+
             paragraph = ""
+            paragraph += words[i] + " "
             counter = 0
         if len_chars < number_char and last_word == i+1:
             multiline_text += add_spaces(paragraph.rstrip(), number_char, align)
+            paragraph = ""
+            counter = 0
 
     return multiline_text
 
