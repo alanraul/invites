@@ -81,13 +81,19 @@ def multiline_text(text, number_char, align):
             paragraph += words[i] + " "
             counter = len(paragraph)
 
-        if len_chars > number_char:
+        elif last_word == i+1 and paragraph != "":
             multiline_text += add_spaces(paragraph.rstrip(), number_char, align) + "\n"
+            multiline_text += add_spaces(words[i], number_char, align)
+
             paragraph = ""
             counter = 0
 
-        if last_word == i+1:
-            multiline_text += add_spaces(words[i], number_char, align) + "\n"
+        if len_chars > number_char and i+1 != last_word:
+            multiline_text += add_spaces(paragraph.rstrip(), number_char, align) + "\n"
+            paragraph = ""
+            counter = 0
+        if len_chars < number_char and last_word == i+1:
+            multiline_text += add_spaces(paragraph.rstrip(), number_char, align)
 
     return multiline_text
 
