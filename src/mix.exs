@@ -45,6 +45,7 @@ defmodule Invites.Mixfile do
       {:sweet_xml,        "~> 0.6"},
       {:poison,           "~> 3.1"},
       {:distillery,       "~> 1.5", runtime: false},
+      {:cors_plug,        "~> 1.5"},
     ]
   end
 

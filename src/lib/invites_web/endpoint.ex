@@ -18,6 +18,7 @@ defmodule InvitesWeb.Endpoint do
   end
 
   plug Plug.Logger
+  plug CORSPlug, origin: "*"
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
