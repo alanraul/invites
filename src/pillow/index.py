@@ -104,8 +104,10 @@ def multiline_text(text, number_char, align):
 
 if __name__ == '__main__':
     invite = json.loads(sys.argv[1])
+    extension = invite["template"].split(".")[-1]
 
     image = Image.open(get_file(os.environ["TEMPLATES_BUCKET"], invite["template"]))
+
     draw = ImageDraw.Draw(image)
 
     for text in invite["texts"]:
@@ -122,4 +124,4 @@ if __name__ == '__main__':
         draw.multiline_text(coordinates, text["text"], fill=color, font=font,
                         anchor=None, spacing=text["spacing"], align=text["align"])
 
-    image.save(invite["name"] + '.jpg')
+    image.save(invite["name"] + '.' + extension)
