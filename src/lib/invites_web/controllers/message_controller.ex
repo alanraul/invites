@@ -25,12 +25,14 @@ defmodule InvitesWeb.MessagesController do
           texts: texts
         })
 
+        [_name, extension] = String.split(invite.template)
+
         {"", 0} = System.cmd("#{System.cwd()}/pillow/dist/index", [args])
 
-        upload_file(file_name)
+        upload_file(file_name, extension)
 
         render(conn, "message.json", message: %{
-          uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.jpg"
+          uri: "https://s3.us-east-2.amazonaws.com/invites-messages/#{file_name}.#{extension}"
         })
     end
   end
@@ -59,11 +61,11 @@ defmodule InvitesWeb.MessagesController do
     if message == nil, do: "", else: message["text"]
   end
 
-  def upload_file(file_name) do
-    file = "#{System.cwd()}/#{file_name}.jpg"
+  def upload_file(file_name, extension) do
+    file = "#{System.cwd()}/#{file_name}.#{extension}"
 
     Application.get_env(:invites, :buckets)[:messages]
-    |> S3.put_object("#{file_name}.jpg", File.read!(file), [acl: :public_read])
+    |> S3.put_object("#{file_name}.#{extension}", File.read!(file), [acl: :public_read])
     |> ExAws.request(region: "us-east-2")
 
     File.rm(file)
